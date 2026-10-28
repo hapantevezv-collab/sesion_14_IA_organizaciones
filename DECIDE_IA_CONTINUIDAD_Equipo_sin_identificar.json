@@ -1,0 +1,106 @@
+{
+  "version_artefacto": "3.0",
+  "equipo": "Equipo sin identificar",
+  "llm": "Sin LLM en vivo — simulación de respaldo",
+  "caso": "ConectaRed Servicios Digitales — A1: el proceso de atención que se ahoga",
+  "fecha": "27 de octubre de 2026",
+  "simulacion": true,
+  "contexto_empresa": {
+    "nombre": "ConectaRed Servicios Digitales",
+    "real": false,
+    "sector": "Servicios de conectividad y asistencia tecnológica (ficticio)",
+    "servicios": [
+      "Conectividad e instalaciones",
+      "Soporte técnico",
+      "Citas técnicas",
+      "Facturación y reclamaciones"
+    ],
+    "flujo_narrativo": [
+      "Ingreso multicanal",
+      "Clasificación",
+      "Asignación",
+      "Atención y resolución"
+    ],
+    "advertencia": "Contexto pedagógico, no hechos observados en el CSV"
+  },
+  "kpi": "Tiempo de clasificación",
+  "limite": "La muestra es sintética, pequeña y no representativa",
+  "indicadores": {
+    "muestra_n": 36,
+    "categoria_vacia": 3,
+    "registrado_evaluable_n": 30,
+    "discordantes": 7,
+    "validadas_faltantes": 3,
+    "con_reasignacion": 16,
+    "media_min": 15.7,
+    "mediana_min": 14.5,
+    "resueltos": 21
+  },
+  "escenario": {
+    "solicitudes_mensuales": 1500,
+    "minutos_referencia": 12,
+    "horas_brutas": 300,
+    "representatividad": false
+  },
+  "alternativas": [
+    {
+      "id": "S0",
+      "name": "Estandarizar catálogo, formularios y FAQ (SIN IA)",
+      "desc": "Depurar motivos, responsable del dato y protocolos de recepción.",
+      "v": 4,
+      "f": 5,
+      "r": 2,
+      "kpi": "% de categorías vacías o “Otro”; % de reasignaciones; tiempo medio de clasificación",
+      "why": "Ataca la causa raíz visible en la muestra (vacíos, desacuerdos, “Otro”) sin introducir tecnología nueva. Bajo riesgo de efectos secundarios.",
+      "missing": "Volumen real, tiempo real de re-trabajo, costo de capacitación/control."
+    },
+    {
+      "id": "S1",
+      "name": "Reglas de derivación por categorías",
+      "desc": "Automatización convencional con condiciones explícitas, sin ML.",
+      "v": 3,
+      "f": 4,
+      "r": 3,
+      "kpi": "% de casos auto-derivados correctamente; reducción de reasignaciones",
+      "why": "Factible con datos actuales de categorías y canales. Valor limitado porque la muestra ya muestra desacuerdos y categorías vacías que las reglas no resuelven solas.",
+      "missing": "Frecuencia real de patrones, tasa de falsos positivos de las reglas, mantenimiento de reglas."
+    },
+    {
+      "id": "S2",
+      "name": "IA que sugiere categorías + revisión humana",
+      "desc": "Un modelo asiste, nunca decide sin validación de un responsable.",
+      "v": 3,
+      "f": 3,
+      "r": 4,
+      "kpi": "Tiempo medio de clasificación con asistencia; % de aceptación de sugerencias; % de reasignaciones",
+      "why": "La muestra muestra desacuerdo e inconsistencia, por lo que una sugerencia podría ayudar, pero también puede sesgar o crear nueva dependencia. Requiere datos de entrenamiento y umbral de confianza.",
+      "missing": "Datos etiquetados de calidad (no solo la etiqueta del simulador), costo de revisión humana residual, tasa de error aceptable, drift del modelo."
+    },
+    {
+      "id": "S3",
+      "name": "IA que clasifica y decide sin supervisión",
+      "desc": "Automatización completa; escenario deliberadamente problemático.",
+      "v": 2,
+      "f": 2,
+      "r": 5,
+      "kpi": "% de casos sin intervención; tiempo total de ciclo",
+      "why": "La muestra tiene vacíos, desacuerdos y “Otro”. Automatizar sin supervisión amplifica errores. Riesgo más alto de impacto en cliente y re-trabajo.",
+      "missing": "Tasa de error real, costo de error, volumen de casos atípicos, capacidad de detección de fallos."
+    }
+  ],
+  "respuesta_llm": "Una posible recomendación sería mejorar primero el catálogo y probar reglas de derivación. La IA asistida podría estudiarse después de validar la calidad del dato. Automatizar decisiones sin revisión humana parece prematuro. No hay base para anunciar porcentajes de ahorro neto ni para extrapolar estos 36 casos al mes entero.",
+  "llm_propuso": "Mejorar categorías primero; comparar reglas frente a IA asistida antes de pilotar.",
+  "llm_debilidad": "La muestra sintética no demuestra un ahorro neto mensual ni una tasa operativa real de errores.",
+  "seleccion": "S2",
+  "dictamen": "Estudiar piloto condicionado",
+  "razon_seleccion": "Se selecciona S2 para estudiar un piloto condicionado, no para autorizar su implementación. La muestra sintética presenta 7 desacuerdos entre 30 registros comparables, 16 reasignaciones en 36 registros y un tiempo medio de clasificación de 15,7 minutos. Estos hallazgos justifican investigar oportunidades de mejora, pero no demuestran que la IA sea superior al proceso actual.\n\nS2 permite evaluar sugerencias de clasificación manteniendo la validación y decisión final bajo responsabilidad humana. Antes del piloto se requiere estabilizar el catálogo de categorías mediante S0, establecer una línea base con datos operativos reales y comparar S2 frente a S0 y S1. La continuidad dependerá de mejoras verificables en tiempo, calidad, reasignaciones y costos, sin incrementar los riesgos para los usuarios.",
+  "descartada": "S3",
+  "razon_descarte": "Se pospone S3 porque la evidencia disponible no permite garantizar la seguridad ni la confiabilidad de una clasificación y derivación completamente autónomas. Los registros presentan categorías vacías, desacuerdos y reasignaciones, mientras que la etiqueta validada es una referencia del simulador y no una verdad empírica.\n\nAutomatizar decisiones sin supervisión podría reproducir o amplificar inconsistencias, generar derivaciones incorrectas y aumentar el retrabajo y los riesgos para los usuarios. No se conocen las tasas reales de error, su impacto operativo, los costos de corrección ni los mecanismos de detección y recuperación ante fallos. S3 solo podrá reconsiderarse con evidencia operacional suficiente y controles de riesgo validados.",
+  "evidencia_pendiente": "Se requiere información operativa real y representativa sobre volumen de solicitudes por canal y categoría, tiempos de clasificación y resolución, frecuencia de reasignaciones y costo de los errores. También debe verificarse la calidad del catálogo y de las etiquetas mediante revisión humana independiente.\n\nEs necesario establecer la línea base posterior a S0 y comparar S0, S1 y S2 con casos equivalentes. Se deben medir precisión por categoría, errores críticos, aceptación y corrección de sugerencias, tiempo de revisión humana, reducción neta de retrabajo y costo total de propiedad.\n\nAdicionalmente, faltan criterios de éxito, umbrales de riesgo aceptables, procedimientos de supervisión, gestión de datos, evaluación de sesgos y mecanismos de suspensión del piloto. La muestra sintética de 36 registros no permite estimar estos indicadores para las 1.500 solicitudes mensuales del escenario ilustrativo.",
+  "criterio_avance_suspension": "Avanzar únicamente si S0 ha estabilizado el catálogo, existe una línea base operativa confiable y se aprueba un protocolo de evaluación controlada de S2, con revisión humana obligatoria y sin derivación automática.\n\nEl piloto deberá demostrar mejoras frente a S0 y S1 en tiempo neto de clasificación y reasignaciones, sin deteriorar la calidad ni incrementar los errores críticos. Los umbrales de aceptación se definirán antes de iniciar la evaluación.\n\nSuspender ante errores críticos, deterioro de indicadores, sesgos relevantes, incumplimiento de controles, aumento del retrabajo o ausencia de beneficios netos verificables. Sin evidencia suficiente, no se autorizará el escalamiento ni la transición a S3.",
+  "contraste_humano": "El equipo rechaza interpretar la automatización mediante IA como la solución predeterminada y cuestiona cualquier recomendación que convierta las 300 horas brutas mensuales del escenario ilustrativo en ahorro neto esperado.\n\nSe modifica la secuencia de decisión: primero S0 para corregir inconsistencias del proceso; después comparación con S1; y solo entonces evaluación condicionada de S2. Se exige mantener supervisión humana, establecer métricas verificables y valorar costos, errores y riesgos antes de considerar beneficios.\n\nTambién se rechaza tratar las etiquetas del simulador como verdad empírica o extrapolar los resultados de 36 registros sintéticos a la operación real. La decisión final corresponde al equipo humano y debe sustentarse en evidencia independiente.",
+  "pendientes": [
+    "Identificar el equipo (sin nombres personales)."
+  ],
+  "estado": "BORRADOR"
+}
